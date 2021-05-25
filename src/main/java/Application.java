@@ -1,18 +1,28 @@
-import city_related_classes.City;
-import city_related_classes.CityListManipulator;
+import CityRelatedClasses.CityListManipulator;
 
 import java.io.IOException;
-import java.util.Set;
 
 public class Application {
     public static void main(String[] args) throws IOException {
         CityListManipulator cities = new CityListManipulator();
         cities.readCitiesListFromFile("src/main/resources/Cities.txt");
-        /*cities.printCitiesList();
+
+        System.out.println("Первый модуль:");
+        cities.printCitiesList();
+        System.out.println("_______________");
+
+        System.out.println("Второй модуль:");
         cities.nameSorting();
-        cities.districtAndNameSorting();*/
+        cities.districtAndNameSorting();
+        System.out.println("_______________");
+
+        System.out.println("Третий модуль:");
         cities.maxPopulationSearch();
+        System.out.println("_______________");
+
+        System.out.println("Четвертый модуль:");
         cities.printCitiesAndRegions();
+
 
     }
 }

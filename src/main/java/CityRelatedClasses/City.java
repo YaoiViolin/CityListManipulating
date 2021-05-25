@@ -1,4 +1,4 @@
-package city_related_classes;
+package CityRelatedClasses;
 
 public class City {
     private String name;

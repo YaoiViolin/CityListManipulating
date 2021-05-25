@@ -1,7 +1,4 @@
-package city_related_classes;
-
-import comparators.CityNameAndDistrictComparator;
-import comparators.CityNameComparator;
+package CityRelatedClasses;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -36,11 +33,11 @@ public class CityListManipulator {
     }
 
     public void nameSorting () {
-        sorting(new CityNameComparator());
+        superSmartSort(true);
     }
 
     public void districtAndNameSorting() {
-        sorting(new CityNameAndDistrictComparator().thenComparing(new CityNameComparator()));
+        superSmartSort(false);
     }
 
     public void maxPopulationSearch() {
@@ -73,6 +70,20 @@ public class CityListManipulator {
         }
     }
 
+    public void superSmartSort(boolean firstSort) {
+        List<City> sorted = new ArrayList<>(cities);
+        Comparator<City> namesAndRegions = (city1, city2) -> city1.getDistrict().compareTo(city2.getDistrict());
+        Comparator<City> names = (city1, city2) -> city1.getName().compareTo(city2.getName());
+        if (firstSort)
+            sorted.sort(names.reversed());
+        else
+            sorted.sort(namesAndRegions.thenComparing(names).reversed());
+
+        for (City city : sorted) {
+            System.out.println(city);
+        }
+    }
+
     private City parseLineToCity(String line) {
         String[] cityProps = line.split(";");
         City city = new City(cityProps[1],
@@ -81,14 +92,5 @@ public class CityListManipulator {
                 Integer.parseInt(cityProps[4]),
                 Integer.parseInt(cityProps[5]));
         return city;
-    }
-
-    private void sorting(Comparator<City> comparator) {
-        TreeSet<City> sorted = new TreeSet<>(comparator);
-        sorted.addAll(cities);
-        for (City city :
-                sorted) {
-            System.out.println(city);
-        }
     }
 }
