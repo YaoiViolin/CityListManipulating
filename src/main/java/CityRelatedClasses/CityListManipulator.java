@@ -16,6 +16,10 @@ public class CityListManipulator {
         return cities;
     }
 
+    public void setCities(List<City> cities) {
+        this.cities = cities;
+    }
+
     public void readCitiesListFromFile(String fileName) throws IOException {
         Path path = Paths.get(fileName);
         Scanner scanner = new Scanner(path);
@@ -25,22 +29,29 @@ public class CityListManipulator {
         scanner.close();
     }
 
-    public void printCitiesList() {
+    public void printCitiesList(List<City> list) {
         for (City city :
-                cities) {
+                list) {
             System.out.println(city);
         }
     }
 
-    public void nameSorting () {
-        superSmartSort(true);
+    public List<City> nameSorting () {
+        List<City> sorted = new ArrayList<>(cities);
+        Comparator<City> names = (city1, city2) -> city1.getName().toLowerCase(Locale.ROOT).compareTo(city2.getName().toLowerCase(Locale.ROOT));
+        sorted.sort(names.reversed());
+        return sorted;
     }
 
-    public void districtAndNameSorting() {
-        superSmartSort(false);
+    public List<City> districtAndNameSorting() {
+        List<City> sorted = new ArrayList<>(cities);
+        Comparator<City> namesAndRegions = (city1, city2) -> city1.getDistrict().compareTo(city2.getDistrict());
+        Comparator<City> names = (city1, city2) -> city1.getName().compareTo(city2.getName());
+        sorted.sort(namesAndRegions.thenComparing(names).reversed());
+        return sorted;
     }
 
-    public void maxPopulationSearch() {
+    public String maxPopulationSearch() {
         City[] citiesArray = cities.toArray(new City[cities.size()]);
         int max = Integer.MIN_VALUE;
         int index = 0;
@@ -51,10 +62,10 @@ public class CityListManipulator {
                 index = i;
             }
         }
-        System.out.printf("[%d] = %d\n", index + 1, max);
+        return String.format("[%d] = %d", index + 1, max);
     }
 
-    public void printCitiesAndRegions () {
+    public Map<String, Integer> printCitiesAndRegions () {
         City[] citiesArray = cities.toArray(new City[cities.size()]);
         Map<String,Integer> map = new HashMap<>();
         for (City city : citiesArray) {
@@ -68,20 +79,7 @@ public class CityListManipulator {
                 map.entrySet()) {
             System.out.println(pair.getKey() + " " + pair.getValue());
         }
-    }
-
-    public void superSmartSort(boolean firstSort) {
-        List<City> sorted = new ArrayList<>(cities);
-        Comparator<City> namesAndRegions = (city1, city2) -> city1.getDistrict().compareTo(city2.getDistrict());
-        Comparator<City> names = (city1, city2) -> city1.getName().compareTo(city2.getName());
-        if (firstSort)
-            sorted.sort(names.reversed());
-        else
-            sorted.sort(namesAndRegions.thenComparing(names).reversed());
-
-        for (City city : sorted) {
-            System.out.println(city);
-        }
+        return map;
     }
 
     private City parseLineToCity(String line) {

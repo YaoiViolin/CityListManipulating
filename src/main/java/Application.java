@@ -8,16 +8,17 @@ public class Application {
         cities.readCitiesListFromFile("src/main/resources/Cities.txt");
 
         System.out.println("Первый модуль:");
-        cities.printCitiesList();
+        cities.printCitiesList(cities.getCities());
         System.out.println("_______________");
 
         System.out.println("Второй модуль:");
-        cities.nameSorting();
-        cities.districtAndNameSorting();
+        cities.printCitiesList(cities.nameSorting());
+        System.out.println("_______________");
+        cities.printCitiesList(cities.districtAndNameSorting());
         System.out.println("_______________");
 
         System.out.println("Третий модуль:");
-        cities.maxPopulationSearch();
+        System.out.println(cities.maxPopulationSearch());
         System.out.println("_______________");
 
         System.out.println("Четвертый модуль:");

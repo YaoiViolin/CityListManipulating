@@ -1,5 +1,7 @@
 package CityRelatedClasses;
 
+import java.util.Objects;
+
 public class City {
     private String name;
     private String region;
@@ -44,5 +46,18 @@ public class City {
                 ", population=" + population +
                 ", foundation=" + foundation +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        City city = (City) o;
+        return getPopulation() == city.getPopulation() && getFoundation() == city.getFoundation() && getName().equals(city.getName()) && getRegion().equals(city.getRegion()) && getDistrict().equals(city.getDistrict());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getRegion(), getDistrict(), getPopulation(), getFoundation());
     }
 }
