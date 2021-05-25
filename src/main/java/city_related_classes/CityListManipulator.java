@@ -43,6 +43,35 @@ public class CityListManipulator {
         sorting(new CityNameAndDistrictComparator().thenComparing(new CityNameComparator()));
     }
 
+    public void maxPopulationSearch() {
+        City[] citiesArray = cities.toArray(new City[cities.size()]);
+        int max = Integer.MIN_VALUE;
+        int index = 0;
+
+        for (int i = 0; i < citiesArray.length; i++) {
+            if (max < citiesArray[i].getPopulation()) {
+                max = citiesArray[i].getPopulation();
+                index = i;
+            }
+        }
+        System.out.printf("[%d] = %d\n", index + 1, max);
+    }
+
+    public void printCitiesAndRegions () {
+        City[] citiesArray = cities.toArray(new City[cities.size()]);
+        Map<String,Integer> map = new HashMap<>();
+        for (City city : citiesArray) {
+            String region = city.getRegion();
+            if (map.containsKey(region)) {
+                map.replace(region, map.get(region) + 1);
+            } else map.put(region, 1);
+        }
+
+        for (Map.Entry<String, Integer> pair :
+                map.entrySet()) {
+            System.out.println(pair.getKey() + " " + pair.getValue());
+        }
+    }
 
     private City parseLineToCity(String line) {
         String[] cityProps = line.split(";");
