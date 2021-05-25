@@ -2,12 +2,30 @@ package CityRelatedClasses;
 
 import java.util.Objects;
 
+/**
+ * Класс, описывающий город со свойствами
+ *
+ * @author Дьяковская Маргарита
+ * @version 1.4
+
+ */
+
 public class City {
     private String name;
     private String region;
     private String district;
     private int population;
     private int foundation;
+
+    /**
+     * Конструктор, принимающий на вход следующие параметры
+     * @param name - название города
+     * @param region - регион, в котором находится город
+     * @param district - федеральный округ, в котором находится город
+     * @param population - население города
+     * @param foundation - дата основания иои первого упоминания о городе
+     */
+
 
     public City(String name, String region, String district, int population, int foundation) {
         this.name = name;
@@ -16,6 +34,10 @@ public class City {
         this.population = population;
         this.foundation = foundation;
     }
+
+    /**
+     * Геттеры и сеттеры
+     */
 
     public String getName() {
         return name;
@@ -36,6 +58,10 @@ public class City {
     public int getFoundation() {
         return foundation;
     }
+
+    /**
+     * Переопределение методов по умолчанию
+     */
 
     @Override
     public String toString() {

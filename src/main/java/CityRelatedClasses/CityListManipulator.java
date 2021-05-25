@@ -5,6 +5,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
+/**
+ * Класс, реализующий все требуемые операции со списков городов
+ *
+ * @author Дьяковская Маргарита
+ * @version 1.4
+
+ */
+
 public class CityListManipulator {
     private List<City> cities;
 
@@ -38,15 +46,15 @@ public class CityListManipulator {
 
     public List<City> nameSorting () {
         List<City> sorted = new ArrayList<>(cities);
-        Comparator<City> names = (city1, city2) -> city1.getName().toLowerCase(Locale.ROOT).compareTo(city2.getName().toLowerCase(Locale.ROOT));
+        Comparator<City> names = Comparator.comparing(city -> city.getName().toLowerCase(Locale.ROOT));
         sorted.sort(names.reversed());
         return sorted;
     }
 
     public List<City> districtAndNameSorting() {
         List<City> sorted = new ArrayList<>(cities);
-        Comparator<City> namesAndRegions = (city1, city2) -> city1.getDistrict().compareTo(city2.getDistrict());
-        Comparator<City> names = (city1, city2) -> city1.getName().compareTo(city2.getName());
+        Comparator<City> namesAndRegions = Comparator.comparing(City::getDistrict);
+        Comparator<City> names = Comparator.comparing(City::getName);
         sorted.sort(namesAndRegions.thenComparing(names).reversed());
         return sorted;
     }
@@ -84,11 +92,10 @@ public class CityListManipulator {
 
     private City parseLineToCity(String line) {
         String[] cityProps = line.split(";");
-        City city = new City(cityProps[1],
+        return new City(cityProps[1],
                 cityProps[2],
                 cityProps[3],
                 Integer.parseInt(cityProps[4]),
                 Integer.parseInt(cityProps[5]));
-        return city;
     }
 }
