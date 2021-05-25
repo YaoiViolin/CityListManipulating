@@ -1,11 +1,12 @@
-import java.io.BufferedReader;
-import java.io.File;
+package city_related_classes;
+
+import comparators.CityNameAndDistrictComparator;
+import comparators.CityNameComparator;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class CityListManipulator {
     private List<City> cities;
@@ -25,7 +26,6 @@ public class CityListManipulator {
             cities.add(parseLineToCity(scanner.nextLine()));
         }
         scanner.close();
-
     }
 
     public void printCitiesList() {
@@ -35,13 +35,31 @@ public class CityListManipulator {
         }
     }
 
+    public void nameSorting () {
+        sorting(new CityNameComparator());
+    }
+
+    public void districtAndNameSorting() {
+        sorting(new CityNameAndDistrictComparator().thenComparing(new CityNameComparator()));
+    }
+
+
     private City parseLineToCity(String line) {
         String[] cityProps = line.split(";");
         City city = new City(cityProps[1],
-                            cityProps[2],
-                            cityProps[3],
-                            Integer.parseInt(cityProps[4]),
-                            Integer.parseInt(cityProps[5]));
+                cityProps[2],
+                cityProps[3],
+                Integer.parseInt(cityProps[4]),
+                Integer.parseInt(cityProps[5]));
         return city;
+    }
+
+    private void sorting(Comparator<City> comparator) {
+        TreeSet<City> sorted = new TreeSet<>(comparator);
+        sorted.addAll(cities);
+        for (City city :
+                sorted) {
+            System.out.println(city);
+        }
     }
 }
