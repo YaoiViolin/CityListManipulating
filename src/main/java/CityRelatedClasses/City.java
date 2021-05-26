@@ -6,11 +6,12 @@ import java.util.Objects;
  * Класс, описывающий город со свойствами
  *
  * @author Дьяковская Маргарита
- * @version 1.4
+ * @version 1.1
 
  */
 
 public class City {
+    private long id;
     private String name;
     private String region;
     private String district;
@@ -27,7 +28,8 @@ public class City {
      */
 
 
-    public City(String name, String region, String district, int population, int foundation) {
+    public City(long id, String name, String region, String district, int population, int foundation) {
+        this.id = id;
         this.name = name;
         this.region = region;
         this.district = district;
@@ -36,8 +38,9 @@ public class City {
     }
 
     /**
-     * Геттеры и сеттеры
+     * Геттеры
      */
+    public long getId() { return id; }
 
     public String getName() {
         return name;

@@ -15,10 +15,10 @@ class CityListManipulatorTest {
     static void beforeAll() {
         cities = new CityListManipulator();
         List<City> testList = new ArrayList<>();
-        testList.add(new City("Алдан", "Якутия", "Дальневосточный", 21255, 1924));
-        testList.add(new City("Абакан", "Хакасия", "Сибирский", 165183, 1931));
-        testList.add(new City("Майкоп", "Адыгея", "Южный", 144246, 1857));
-        testList.add(new City("Абаза", "Хакасия", "Сибирский", 17111, 1867));
+        testList.add(new City(1,"Алдан", "Якутия", "Дальневосточный", 21255, 1924));
+        testList.add(new City(2,"Абакан", "Хакасия", "Сибирский", 165183, 1931));
+        testList.add(new City(3,"Майкоп", "Адыгея", "Южный", 144246, 1857));
+        testList.add(new City(4,"Абаза", "Хакасия", "Сибирский", 17111, 1867));
         cities.setCities(testList);
     }
 
@@ -38,10 +38,10 @@ class CityListManipulatorTest {
     @Test
     void nameSorting() {
         List<City> testList = new ArrayList<>();
-        testList.add(new City("Майкоп", "Адыгея", "Южный", 144246, 1857));
-        testList.add(new City("Алдан", "Якутия", "Дальневосточный", 21255, 1924));
-        testList.add(new City("Абакан", "Хакасия", "Сибирский", 165183, 1931));
-        testList.add(new City("Абаза", "Хакасия", "Сибирский", 17111, 1867));
+        testList.add(new City(1,"Майкоп", "Адыгея", "Южный", 144246, 1857));
+        testList.add(new City(2,"Алдан", "Якутия", "Дальневосточный", 21255, 1924));
+        testList.add(new City(3,"Абакан", "Хакасия", "Сибирский", 165183, 1931));
+        testList.add(new City(4,"Абаза", "Хакасия", "Сибирский", 17111, 1867));
 
         List<City> actual = cities.nameSorting();
 
@@ -51,10 +51,10 @@ class CityListManipulatorTest {
     @Test
     void districtAndNameSorting() {
         List<City> testList = new ArrayList<>();
-        testList.add(new City("Майкоп", "Адыгея", "Южный", 144246, 1857));
-        testList.add(new City("Абакан", "Хакасия", "Сибирский", 165183, 1931));
-        testList.add(new City("Абаза", "Хакасия", "Сибирский", 17111, 1867));
-        testList.add(new City("Алдан", "Якутия", "Дальневосточный", 21255, 1924));
+        testList.add(new City(1,"Майкоп", "Адыгея", "Южный", 144246, 1857));
+        testList.add(new City(2,"Абакан", "Хакасия", "Сибирский", 165183, 1931));
+        testList.add(new City(3,"Абаза", "Хакасия", "Сибирский", 17111, 1867));
+        testList.add(new City(4,"Алдан", "Якутия", "Дальневосточный", 21255, 1924));
 
         List<City> actual = cities.districtAndNameSorting();
 

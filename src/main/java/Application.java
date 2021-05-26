@@ -2,6 +2,11 @@ import CityRelatedClasses.CityListManipulator;
 
 import java.io.IOException;
 
+/**
+ * Класс - точка входа в приложение
+ * Читает txt файл из файловой системы
+ * Если такого файла нет, программа закрывается
+ */
 public class Application {
     public static void main(String[] args) {
         CityListManipulator cities = new CityListManipulator();
