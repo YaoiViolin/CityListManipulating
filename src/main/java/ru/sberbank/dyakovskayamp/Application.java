@@ -1,4 +1,6 @@
-import CityRelatedClasses.CityListManipulator;
+package ru.sberbank.dyakovskayamp;
+
+import ru.sberbank.dyakovskayamp.service.CityListManipulator;
 
 import java.io.IOException;
 
@@ -15,13 +17,13 @@ public class Application {
             cities.readCitiesListFromFile("src/main/resources/Cities.txt");
 
             System.out.println("Первый модуль:");
-            cities.printCitiesList(cities.getCities());
+            cities.printAllCities();
             System.out.println("_______________");
 
             System.out.println("Второй модуль:");
-            cities.printCitiesList(cities.nameSorting());
+            cities.printList(cities.nameSorting());
             System.out.println("_______________");
-            cities.printCitiesList(cities.districtAndNameSorting());
+            cities.printList(cities.districtAndNameSorting());
             System.out.println("_______________");
 
             System.out.println("Третий модуль:");

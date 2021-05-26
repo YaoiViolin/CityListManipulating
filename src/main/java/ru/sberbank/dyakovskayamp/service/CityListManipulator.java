@@ -1,4 +1,7 @@
-package CityRelatedClasses;
+package ru.sberbank.dyakovskayamp.service;
+
+import ru.sberbank.dyakovskayamp.dao.DataAccessObject;
+import ru.sberbank.dyakovskayamp.db.CityDataBase;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -14,25 +17,20 @@ import java.util.*;
 
 
 public class CityListManipulator {
-    private List<City> cities;
+    private final DataAccessObject dataAccessObject;
 
     /**
-     * Конструктор, инициализирующий список
+     * Конструктор
      */
 
     public CityListManipulator() {
-        cities = new ArrayList<>();
-    }
-    /**
-     * Геттер и сеттер
-     */
-    public List<City> getCities() {
-        return cities;
+        dataAccessObject = new DataAccessObject(new CityDataBase());
     }
 
-    public void setCities(List<City> cities) {
-        this.cities = cities;
+    public DataAccessObject getDataAccessObject() {
+        return dataAccessObject;
     }
+
     /**
      * Функция принимает на вход файл со списком городов, парсит его, заполняя список
      * @param fileName - путь к файлу
@@ -42,14 +40,21 @@ public class CityListManipulator {
         Path path = Paths.get(fileName);
         Scanner scanner = new Scanner(path);
         while(scanner.hasNext()){
-            cities.add(parseLineToCity(scanner.nextLine()));
+            dataAccessObject.add(parseLineToCity(scanner.nextLine()));
         }
         scanner.close();
     }
     /**
      * Функция печатает в консоль содержимое списка городов
      */
-    public void printCitiesList(List<City> list) {
+    public void printAllCities() {
+        List<City> list = dataAccessObject.getCities();
+        printList(list);
+    }
+    /**
+     * Функция печатает в консоль содержимое списка
+     */
+    public void printList(List<City> list) {
         for (City city :
                 list) {
             System.out.println(city);
@@ -59,7 +64,7 @@ public class CityListManipulator {
      * Функция сортирует список городов по имени в обратном порядке (от Я до А)
      */
     public List<City> nameSorting () {
-        List<City> sorted = new ArrayList<>(cities);
+        List<City> sorted = new ArrayList<>(dataAccessObject.getCities());
         Comparator<City> names = Comparator.comparing(city -> city.getName().toLowerCase(Locale.ROOT));
         sorted.sort(names.reversed());
         return sorted;
@@ -68,7 +73,7 @@ public class CityListManipulator {
      * Функция сортирует список городов в рамках каждого региона в обратном порядке (от Я до А)
      */
     public List<City> districtAndNameSorting() {
-        List<City> sorted = new ArrayList<>(cities);
+        List<City> sorted = new ArrayList<>(dataAccessObject.getCities());
         Comparator<City> namesAndRegions = Comparator.comparing(City::getDistrict);
         Comparator<City> names = Comparator.comparing(City::getName);
         sorted.sort(namesAndRegions.thenComparing(names).reversed());
@@ -78,7 +83,7 @@ public class CityListManipulator {
      * Функция ищет в списке городов город с наибольшим населением и возвращает строку, содержащую порядковый номер (индекс) города и население
      */
     public String maxPopulationSearch() {
-        City[] citiesArray = cities.toArray(new City[cities.size()]);
+        City[] citiesArray = dataAccessObject.getCities().toArray(new City[0]);
         City city = Arrays.stream(citiesArray).max(Comparator.comparing(City::getPopulation)).get();
         return String.format("[%d] = %d", city.getId(), city.getPopulation());
     }
@@ -87,7 +92,7 @@ public class CityListManipulator {
      * @return карта, где ключ - название региона, а значение - кол-во городов в этом регионе
      */
     public Map<String, Integer> printCitiesAndRegions () {
-        City[] citiesArray = cities.toArray(new City[cities.size()]);
+        City[] citiesArray = dataAccessObject.getCities().toArray(new City[0]);
         Map<String,Integer> map = new HashMap<>();
         for (City city : citiesArray) {
             String region = city.getRegion();
@@ -117,4 +122,6 @@ public class CityListManipulator {
                 Integer.parseInt(cityProps[4]),
                 Integer.parseInt(cityProps[5]));
     }
+
+
 }

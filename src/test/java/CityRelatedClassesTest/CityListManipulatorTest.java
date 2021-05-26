@@ -1,7 +1,7 @@
 package CityRelatedClassesTest;
 
-import CityRelatedClasses.City;
-import CityRelatedClasses.CityListManipulator;
+import ru.sberbank.dyakovskayamp.service.City;
+import ru.sberbank.dyakovskayamp.service.CityListManipulator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -14,12 +14,12 @@ class CityListManipulatorTest {
     @BeforeAll
     static void beforeAll() {
         cities = new CityListManipulator();
-        List<City> testList = new ArrayList<>();
-        testList.add(new City(1,"Алдан", "Якутия", "Дальневосточный", 21255, 1924));
-        testList.add(new City(2,"Абакан", "Хакасия", "Сибирский", 165183, 1931));
-        testList.add(new City(3,"Майкоп", "Адыгея", "Южный", 144246, 1857));
-        testList.add(new City(4,"Абаза", "Хакасия", "Сибирский", 17111, 1867));
-        cities.setCities(testList);
+        List<City> list = cities.getDataAccessObject().getCities();
+        list.add(new City(1,"Алдан", "Якутия", "Дальневосточный", 21255, 1924));
+        list.add(new City(2,"Абакан", "Хакасия", "Сибирский", 165183, 1931));
+        list.add(new City(3,"Майкоп", "Адыгея", "Южный", 144246, 1857));
+        list.add(new City(4,"Абаза", "Хакасия", "Сибирский", 17111, 1867));
+
     }
 
     @Test
@@ -32,7 +32,7 @@ class CityListManipulatorTest {
         }
 
         Assertions.assertNotNull(cities);
-        Assertions.assertEquals(11, cities.getCities().size());
+        Assertions.assertEquals(11, cities.getDataAccessObject().getCities().size());
     }
 
     @Test

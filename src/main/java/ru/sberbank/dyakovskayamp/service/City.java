@@ -1,4 +1,4 @@
-package CityRelatedClasses;
+package ru.sberbank.dyakovskayamp.service;
 
 import java.util.Objects;
 
