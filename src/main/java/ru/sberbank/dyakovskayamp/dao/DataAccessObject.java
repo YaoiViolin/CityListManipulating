@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataAccessObject {
-    private CityDataBase dataBaseInstance;
+    private final CityDataBase dataBaseInstance;
 
     public DataAccessObject(CityDataBase dataBaseInstance) {
         this.dataBaseInstance = dataBaseInstance;

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Класс, реализующий все требуемые операции со списков городов
@@ -91,20 +92,11 @@ public class CityListManipulator {
      * Функция возвращает кол-во городов в каждом регионе
      * @return карта, где ключ - название региона, а значение - кол-во городов в этом регионе
      */
-    public Map<String, Integer> printCitiesAndRegions () {
+    public Map<String, Long> printCitiesAndRegions () {
         City[] citiesArray = dataAccessObject.getCities().toArray(new City[0]);
-        Map<String,Integer> map = new HashMap<>();
-        for (City city : citiesArray) {
-            String region = city.getRegion();
-            if (map.containsKey(region)) {
-                map.replace(region, map.get(region) + 1);
-            } else map.put(region, 1);
-        }
+        Map<String, Long> map = Arrays.stream(citiesArray).collect(Collectors.groupingBy(City::getRegion, Collectors.counting()));
 
-        for (Map.Entry<String, Integer> pair :
-                map.entrySet()) {
-            System.out.println(pair.getKey() + " " + pair.getValue());
-        }
+        map.forEach((key, value) -> System.out.println(key + " - " + value));
         return map;
     }
 

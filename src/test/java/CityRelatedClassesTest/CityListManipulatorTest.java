@@ -71,12 +71,12 @@ class CityListManipulatorTest {
 
     @Test
     void printCitiesAndRegions() {
-        Map<String, Integer> expected = new HashMap<>();
-        expected.put("Хакасия", 2);
-        expected.put("Якутия", 1);
-        expected.put("Адыгея", 1);
+        Map<String, Long> expected = new HashMap<>();
+        expected.put("Хакасия", 2L);
+        expected.put("Якутия", 1L);
+        expected.put("Адыгея", 1L);
 
-        Map<String, Integer> actual = cities.printCitiesAndRegions();
+        Map<String, Long> actual = cities.printCitiesAndRegions();
         Assertions.assertEquals(expected, actual);
     }
 }
